@@ -12,10 +12,10 @@ CREATE TABLE Vendors (
 );
 
 -- ==========================
--- 2. Items Table
+-- 2. Parts Table
 -- ==========================
-CREATE TABLE Items (
-    ItemID VARCHAR(20) PRIMARY KEY,
+CREATE TABLE Parts (
+    PartID VARCHAR(20) PRIMARY KEY,
     VendorID INT NOT NULL,
     UnitPrice DECIMAL(10,2) NOT NULL,
     QuantityInStock INT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE Items (
 -- ==========================
 CREATE TABLE InventoryRequests (
     RequestID INT AUTO_INCREMENT PRIMARY KEY,
-    ItemID VARCHAR(20) NOT NULL,
+    PartID VARCHAR(20) NOT NULL,
     QuantityRequested INT NOT NULL,
     QuantityShort INT DEFAULT 0,
     QuantityToOrder INT DEFAULT 0,
@@ -48,15 +48,15 @@ VALUES
 ('Samsung', 'samsung@suppliers.com'),
 ('LG', 'lg@suppliers.com');
 
--- Items
-INSERT INTO Items (ItemID, VendorID, UnitPrice, QuantityInStock, LastInventoried, OrderSize)
+-- Parts
+INSERT INTO Parts (PartID, VendorID, UnitPrice, QuantityInStock, LastInventoried, OrderSize)
 VALUES
 ('WDX50934', 1, 29.00, 374, '2025-10-17 08:43:00', 16),
 ('SAM12345', 2, 45.00, 210, '2025-10-20 09:00:00', 20),
 ('LG98765', 3, 55.00, 95, '2025-10-19 14:30:00', 10);
 
 -- Inventory Requests
-INSERT INTO InventoryRequests (ItemID, QuantityRequested, QuantityShort, QuantityToOrder, NextOrderCost)
+INSERT INTO InventoryRequests (PartID, QuantityRequested, QuantityShort, QuantityToOrder, NextOrderCost)
 VALUES
 ('WDX50934', 29, 0, 0, 0.00),
 ('SAM12345', 50, 10, 10, 450.00),
