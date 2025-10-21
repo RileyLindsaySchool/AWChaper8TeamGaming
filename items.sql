@@ -32,7 +32,7 @@ CREATE TABLE InventoryRequests (
     QuantityShort INT DEFAULT 0,
     QuantityToOrder INT DEFAULT 0,
     NextOrderCost DECIMAL(10,2) DEFAULT 0.00,
-    FOREIGN KEY (ItemID) REFERENCES Items(ItemID)
+    FOREIGN KEY (PartID) REFERENCES Parts(PartID)
 );
 
 -- ==========================

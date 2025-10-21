@@ -1,13 +1,6 @@
 USE aw_sim;
 
 -- ==============================================
--- 0. Appliances 
--- ==============================================
-CREATE TABLE Appliances (
-    ...
-);
-
--- ==============================================
 -- 1. Customers Table
 -- ==============================================
 CREATE TABLE Customers (
@@ -15,18 +8,30 @@ CREATE TABLE Customers (
     FirstName VARCHAR(20) NOT NULL,
     LastName VARCHAR(20) NOT NULL,
     Email VARCHAR(30) NOT NULL,
-    Phone CHAR(12) NOT NULL, -- DDD-DDD-DDDD
+    Phone CHAR(12) NOT NULL,
     ServiceCalls INT NOT NULL DEFAULT 0,
     HasServicePlan TINYINT(1) NOT NULL DEFAULT 0
 );
 
 -- ==============================================
--- 2. Service Calls Table
+-- 2. Technicians Table
+-- ==============================================
+CREATE TABLE Technicians (
+    EmployeeID CHAR(6) PRIMARY KEY,
+    FirstName VARCHAR(20) NOT NULL,
+    LastName VARCHAR(20) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Phone CHAR(12) NOT NULL,
+    ReportsTo CHAR(6)
+);
+
+-- ==============================================
+-- 3. Service Calls Table
 -- ==============================================
 CREATE TABLE ServiceCalls (
     ServiceCallID INT AUTO_INCREMENT PRIMARY KEY,
     CustomerID INT NOT NULL,
-    TechnicianID INT NOT NULL,
+    TechnicianID CHAR(6) NOT NULL,
     Date DATETIME NOT NULL,
     DurationInMins INT,
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
@@ -34,7 +39,7 @@ CREATE TABLE ServiceCalls (
 );
 
 -- ==============================================
--- 3. Technician Notes for Service Calls Table
+-- 4. Technician Notes for Service Calls Table
 -- ==============================================
 CREATE TABLE ServiceNotes (
     NoteID INT AUTO_INCREMENT PRIMARY KEY,
@@ -44,22 +49,12 @@ CREATE TABLE ServiceNotes (
 );
 
 -- ==============================================
--- 4. Technicians Table
--- ==============================================
-CREATE TABLE Technicians (
-    EmployeeID CHAR(5) PRIMARY KEY,
-    FirstName VARCHAR(20) NOT NOT,
-    LastName VARCHAR(20) NOT NULL,
-    Email VARCHAR(30) NOT NULL,
-    Phone CHAR(12) NOT NULL -- DDD-DDD-DDDD
-);
-
--- ==============================================
 -- 5. Customer Satisfaction Ratings Table
 -- ==============================================
 CREATE TABLE CustomerSatisfactionRatings (
-    RatingID INT AUTO_INCREMENT PRIMARY KEY,
-    CustomerID,
-    EmployeeID,
-    PRIMARY KEY (CustomerID, EmployeeID)
+    CustomerID INT NOT NULL,
+    TechnicianID CHAR(6) NOT NULL,
+    PRIMARY KEY (CustomerID, TechnicianID),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (TechnicianID) REFERENCES Technicians(EmployeeID)
 );
