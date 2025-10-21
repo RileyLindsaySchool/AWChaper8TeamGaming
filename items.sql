@@ -1,6 +1,6 @@
 -- Create the database
-CREATE DATABASE IF NOT EXISTS InventoryDB;
-USE InventoryDB;
+CREATE DATABASE IF NOT EXISTS aw_sim;
+USE aw_sim;
 
 -- ==========================
 -- 1. Vendors Table

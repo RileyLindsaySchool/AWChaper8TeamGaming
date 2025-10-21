@@ -8,10 +8,6 @@ create table Customers (
     ...
 );
 
-create table Parts (
-    ...
-);
-
 create table ServiceCalls (
     ...
 );
