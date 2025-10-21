@@ -1,1 +1,1 @@
-create database aw_sim;
+CREATE DATABASE IF NOT EXISTS aw_sim;

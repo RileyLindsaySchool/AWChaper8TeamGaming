@@ -1,5 +1,3 @@
--- Create the database
-CREATE DATABASE IF NOT EXISTS aw_sim;
 USE aw_sim;
 
 -- ==========================
