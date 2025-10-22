@@ -9,6 +9,9 @@ CREATE TABLE Customers (
     LastName VARCHAR(20) NOT NULL,
     Email VARCHAR(30) NOT NULL,
     Phone CHAR(12) NOT NULL,
+    State CHAR(2) NOT NULL,
+    City VARCHAR(50) NOT NULL,
+    StreetAddress VARCHAR(100),
     ServiceCalls INT NOT NULL DEFAULT 0,
     HasServicePlan TINYINT(1) NOT NULL DEFAULT 0
 );
@@ -52,9 +55,8 @@ CREATE TABLE ServiceNotes (
 -- 5. Customer Satisfaction Ratings Table
 -- ==============================================
 CREATE TABLE CustomerSatisfactionRatings (
-    CustomerID INT NOT NULL,
-    TechnicianID CHAR(6) NOT NULL,
-    PRIMARY KEY (CustomerID, TechnicianID),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
-    FOREIGN KEY (TechnicianID) REFERENCES Technicians(EmployeeID)
+    ServiceCallID INT NOT NULL,
+    PercentSatisfaction INT NOT NULL,
+    PRIMARY KEY (ServiceCallID),
+    FOREIGN KEY (ServiceCallID) REFERENCES ServiceCalls(ServiceCallID)
 );

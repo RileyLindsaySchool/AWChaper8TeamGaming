@@ -23,16 +23,27 @@ CREATE TABLE Parts (
 );
 
 -- ==========================
--- 3. InventoryRequests Table
+-- 3. Appliances Table
+-- ==========================
+CREATE TABLE Appliances (
+    ApplianceID VARCHAR(20) PRIMARY KEY,
+    VendorID INT NOT NULL,
+    OrderPrice DECIMAL(10,2) NOT NULL,
+    SalesPrice DECIMAL(10,2),
+    QuantityInStock INT NOT NULL,
+    FOREIGN KEY (VendorID) REFERENCES Vendors(VendorID)
+);
+
+-- ==========================
+-- 4. InventoryRequests Table
 -- ==========================
 CREATE TABLE InventoryRequests (
     RequestID INT AUTO_INCREMENT PRIMARY KEY,
     PartID VARCHAR(20) NOT NULL,
     QuantityRequested INT NOT NULL,
-    QuantityShort INT DEFAULT 0,
-    QuantityToOrder INT DEFAULT 0,
-    NextOrderCost DECIMAL(10,2) DEFAULT 0.00,
-    FOREIGN KEY (PartID) REFERENCES Parts(PartID)
+    DuringServiceCallID INT NOT NULL,
+    FOREIGN KEY (PartID) REFERENCES Parts(PartID),
+    FOREIGN KEY (DuringServiceCallID) REFERENCES ServiceCalls(ServiceCallID)
 );
 
 -- ==========================
@@ -53,9 +64,16 @@ VALUES
 ('SAM12345', 2, 45.00, 210, '2025-10-20 09:00:00', 20),
 ('LG98765', 3, 55.00, 95, '2025-10-19 14:30:00', 10);
 
--- Inventory Requests
-INSERT INTO InventoryRequests (PartID, QuantityRequested, QuantityShort, QuantityToOrder, NextOrderCost)
+-- Appliances
+INSERT INTO Appliances (ApplianceID, VendorID, OrderPrice, SalesPrice, QuantityInStock)
 VALUES
-('WDX50934', 29, 0, 0, 0.00),
-('SAM12345', 50, 10, 10, 450.00),
-('LG98765', 20, 5, 5, 275.00);
+('WRQA59CNKZ', 1, 1808.99, 1993.99, 1),
+('DW80CG4021SR', 2, 429.99, 479.99, 2),
+('MSER0990S', 3, 149.99, 199.99, 5);
+
+-- Inventory Requests
+INSERT INTO InventoryRequests (PartID, QuantityRequested, DuringServiceCallID)
+VALUES
+('WDX50934', 29, 2),
+('SAM12345', 50, 1),
+('LG98765', 20, 3);
